@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Missing You, My Love</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1400&q=80') no-repeat center center/cover;
+      color: white;
+      height: 100vh;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 0;
+    }
+
+    .message-box {
+      text-align: center;
+      max-width: 90%;
+      animation: fadeIn 2s ease-in-out;
+      z-index: 1;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3.5rem;
+      color: #ff8fab;
+      text-shadow: 0 0 15px #ff8fab;
+      margin-bottom: 20px;
+    }
+
+    .quote {
+      font-size: 1.4rem;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 0.6s ease-in-out;
+      margin: 20px 0;
+    }
+
+    .quote.show {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .buttons button {
+      background: #ff8fab;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 30px;
+      font-size: 1rem;
+      cursor: pointer;
+      color: #fff;
+      font-weight: bold;
+      transition: background 0.3s;
+      box-shadow: 0 0 10px #ff8fab;
+    }
+
+    .buttons button:hover {
+      background: #ff5f95;
+    }
+
+    .surprise {
+      font-size: 1.8rem;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 20px;
+      border-radius: 20px;
+      margin-top: 40px;
+      box-shadow: 0 0 20px #ff8fab;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all 1s ease;
+      z-index: 1;
+    }
+
+    .surprise.show {
+      opacity: 1;
+      transform: scale(1.05);
+    }
+
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      color: #ffb6c1;
+      font-size: 2rem;
+      animation: floatHearts 8s infinite ease-in;
+      opacity: 0.7;
+    }
+
+    @keyframes floatHearts {
+      0% {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+      }
+      50% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-10vh) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    @keyframes fadeIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay"></div>
+
+  <div class="message-box">
+    <h1>Nandini, I Miss You</h1>
+    <p class="quote" id="quote">Click a button below to feel my heart ❤️</p>
+
+    <div class="buttons">
+      <button onclick="showQuote(0)">💌 Quote 1</button>
+      <button onclick="showQuote(1)">💖 Quote 2</button>
+      <button onclick="showQuote(2)">💘 Quote 3</button>
+      <button onclick="showQuote(3)">💕 Quote 4</button>
+      <button onclick="showQuote(4)">🌙 Quote 5</button>
+    </div>
+
+    <div class="surprise" id="surpriseMsg">
+      <!-- Surprise Love Message Appears Here -->
+    </div>
+  </div>
+
+  <div class="hearts">
+    <div class="heart" style="left: 10%; animation-delay: 0s;">💖</div>
+    <div class="heart" style="left: 25%; animation-delay: 2s;">💘</div>
+    <div class="heart" style="left: 40%; animation-delay: 4s;">💓</div>
+    <div class="heart" style="left: 60%; animation-delay: 1s;">❤️</div>
+    <div class="heart" style="left: 80%; animation-delay: 3s;">💕</div>
+  </div>
+
+  <!-- Romantic Background Music -->
+  <audio autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <script>
+    const quotes = [
+      "Every heartbeat whispers your name. I miss you endlessly, Nandini.",
+      "No matter where I go, your love follows me like my shadow.",
+      "Even in a crowded room, I feel alone without your smile.",
+      "Missing you isn’t a habit—it’s a part of me.",
+      "Your absence has left a hole only your presence can heal."
+    ];
+
+    const quoteEl = document.getElementById('quote');
+    const surpriseEl = document.getElementById('surpriseMsg');
+    let clickedQuotes = [];
+
+    function showQuote(index) {
+      quoteEl.classList.remove("show");
+      setTimeout(() => {
+        quoteEl.textContent = quotes[index];
+        quoteEl.classList.add("show");
+      }, 400);
+
+      if (!clickedQuotes.includes(index)) {
+        clickedQuotes.push(index);
+      }
+
+      if (clickedQuotes.length === quotes.length) {
+        showSurprise();
+      }
+    }
+
+    function showSurprise() {
+      setTimeout(() => {
+        surpriseEl.textContent = "Surprise ❤️: You’re not just someone I miss... You’re someone my soul longs for. I love you, Nandini. Forever. 💍";
+        surpriseEl.classList.add("show");
+      }, 1000);
+    }
+  </script>
+
+</body>
+</html>
